@@ -1,0 +1,12 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // "[typescript]": {
+  //   "editor.formatOnSave": true
+  // },
+  // "[javascript]": {
+  //   "editor.formatOnSave": true
+  // },
+  "prettier.endOfLine": "lf",
+  "files.eol": "\n"
+}
