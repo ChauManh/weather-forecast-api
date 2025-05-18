@@ -30,9 +30,6 @@ export class User {
   @Column({ nullable: true })
   current_city_fk: number;
 
-  @Column({ length: 25, nullable: true })
-  hashSalt: string;
-
   @Column({ length: 25, default: 'en' })
   nd_language: string;
 
@@ -45,8 +42,8 @@ export class User {
   @Column({ length: 50, nullable: true })
   status: string;
 
-  @Column({ type: 'int', default: 0 })
-  role: number;
+  @Column({ default: 'USER' })
+  role: 'USER' | 'ADMIN';
 
   @ManyToOne(() => City)
   @JoinColumn({ name: 'current_city_fk' })

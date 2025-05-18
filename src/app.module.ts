@@ -9,6 +9,7 @@ import { WeatherModule } from './weather/weather.module';
 import { UserModule } from './user/user.module';
 import { CountryModule } from './country/country.module';
 import { WeatherConditionModule } from './weather-condition/weather-condition.module';
+import { SeederModule } from './seeder/seeder.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { WeatherConditionModule } from './weather-condition/weather-condition.mo
     WeatherModule,
     UserModule,
     WeatherConditionModule,
+    SeederModule,
   ],
   controllers: [AppController],
   providers: [AppService],

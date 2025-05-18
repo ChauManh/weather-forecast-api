@@ -1,0 +1,56 @@
+weather_condition_id,main,weather_description
+200,Thunderstorm,Thunderstorm with light rain
+201,Thunderstorm,Thunderstorm with rain
+202,Thunderstorm,Thunderstorm with heavy rain
+210,Thunderstorm,Light thunderstorm
+211,Thunderstorm,Thunderstorm
+212,Thunderstorm,Heavy thunderstorm
+221,Thunderstorm,Ragged thunderstorm
+230,Thunderstorm,Thunderstorm with light drizzle
+231,Thunderstorm,Thunderstorm with drizzle
+232,Thunderstorm,Thunderstorm with heavy drizzle
+300,Drizzle,Light intensity drizzle
+301,Drizzle,Drizzle
+302,Drizzle,Heavy intensity drizzle
+310,Drizzle,Light intensity drizzle rain
+311,Drizzle,Drizzle rain
+312,Drizzle,Heavy intensity drizzle rain
+313,Drizzle,Shower rain and drizzle
+314,Drizzle,Heavy shower rain and drizzle
+321,Drizzle,Shower drizzle
+500,Rain,Light rain
+501,Rain,Moderate rain
+502,Rain,Heavy intensity rain
+503,Rain,Very heavy rain
+504,Rain,Extreme rain
+511,Rain,Freezing rain
+520,Rain,Light intensity shower rain
+521,Rain,Shower rain
+522,Rain,Heavy intensity shower rain
+531,Rain,Ragged shower rain
+600,Snow,Light snow
+601,Snow,Snow
+602,Snow,Heavy snow
+611,Snow,Sleet
+612,Snow,Light shower sleet
+613,Snow,Shower sleet
+615,Snow,Light rain and snow
+616,Snow,Rain and snow
+620,Snow,Light shower snow
+621,Snow,Shower snow
+622,Snow,Heavy shower snow
+701,Mist,Mist
+711,Smoke,Smoke
+721,Haze,Haze
+731,Dust,Sand/Dust whirls
+741,Fog,Fog
+751,Sand,Sand
+761,Dust,Dust
+762,Ash,Volcanic ash
+771,Squall,Squalls
+781,Tornado,Tornado
+800,Clear,Clear sky
+801,Clouds,Few clouds: 11-25%
+802,Clouds,Scattered clouds: 25-50%
+803,Clouds,Broken clouds: 51-84%
+804,Clouds,Overcast clouds: 85-100%

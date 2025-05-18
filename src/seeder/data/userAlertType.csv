@@ -1,0 +1,8 @@
+alert_type_id,alert_description
+1,Temperature
+2,Humidity
+3,UV
+4,Feels like
+5,Air quality index
+6,Visibility
+7,Clouds

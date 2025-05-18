@@ -12,7 +12,7 @@ export class WeatherCondition {
   main: string;
 
   @Column({ length: 100 })
-  weather_desciption: string;
+  weather_description: string;
 
   @OneToOne(() => CurrentWeather, (cw) => cw.weatherCondition)
   currentWeather: CurrentWeather[];
