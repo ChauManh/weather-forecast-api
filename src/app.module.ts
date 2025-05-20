@@ -10,6 +10,7 @@ import { UserModule } from './user/user.module';
 import { CountryModule } from './country/country.module';
 import { WeatherConditionModule } from './weather-condition/weather-condition.module';
 import { SeederModule } from './seeder/seeder.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { SeederModule } from './seeder/seeder.module';
     UserModule,
     WeatherConditionModule,
     SeederModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

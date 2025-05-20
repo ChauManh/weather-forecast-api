@@ -16,7 +16,7 @@ import { UserAlertHistory } from './user-alert-history.entity';
       UserAlertHistory,
     ]),
   ],
-  exports: [TypeOrmModule],
+  exports: [UserService],
   controllers: [UserController],
   providers: [UserService],
 })

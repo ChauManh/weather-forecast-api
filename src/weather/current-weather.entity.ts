@@ -4,6 +4,7 @@ import {
   Column,
   JoinColumn,
   OneToOne,
+  ManyToOne,
 } from 'typeorm';
 import { City } from 'src/city/city.entity';
 import { WeatherCondition } from 'src/weather-condition/weather-condition.entity';
@@ -56,7 +57,7 @@ export class CurrentWeather {
   @JoinColumn({ name: 'city_id' })
   city: City;
 
-  @OneToOne(() => WeatherCondition, (wc) => wc.currentWeather)
+  @ManyToOne(() => WeatherCondition, (wc) => wc.currentWeather)
   @JoinColumn({ name: 'weather_condition_id' })
   weatherCondition: WeatherCondition;
 }
