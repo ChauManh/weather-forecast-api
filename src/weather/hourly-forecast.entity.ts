@@ -4,11 +4,13 @@ import {
   Column,
   ManyToOne,
   JoinColumn,
+  Index,
 } from 'typeorm';
 import { City } from 'src/city/city.entity';
 import { WeatherCondition } from 'src/weather-condition/weather-condition.entity';
 
 @Entity('HourlyForecast')
+@Index(['city_id', 'hf_timestamp'], { unique: true })
 export class HourlyForecast {
   @PrimaryGeneratedColumn()
   hourly_forecast_id: number;

@@ -20,7 +20,6 @@ export class OpenWeatherService {
     params: Record<string, any> = {}
   ): Promise<AxiosResponse<T>> {
     const url = `${this.baseUrl}${endpoint}`;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     return await this.httpService.axiosRef.get<T>(url, {
       params: {
         ...params,
