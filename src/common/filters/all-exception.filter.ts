@@ -5,6 +5,7 @@ import {
   HttpException,
   HttpStatus,
 } from '@nestjs/common';
+import { ApiResponse } from '../dto/api-response.dto';
 import { Request, Response } from 'express';
 
 @Catch()
@@ -31,17 +32,13 @@ export class AllExceptionsFilter implements ExceptionFilter {
       }
     }
 
-    console.error('🔥 Exception caught by AllExceptionsFilter:');
+    console.error('Exception caught by AllExceptionsFilter:');
     console.error({
       status,
       message,
       error: exception instanceof Error ? exception.stack : exception,
     });
 
-    response.status(status).json({
-      statusCode: status,
-      message,
-      result: null,
-    });
+    response.status(status).json(new ApiResponse<null>(status, message, null));
   }
 }

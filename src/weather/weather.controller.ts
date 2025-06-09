@@ -30,4 +30,14 @@ export class WeatherController {
       `Get hourly forecast weather successfully`
     );
   }
+
+  @Get('forecast/daily')
+  async getDailyForecastWeatherByCityId(@Query('city_id') city_id: number) {
+    const dailyForcastWeathers =
+      await this.weatherService.getDailyForecastWeatherByCityId(city_id);
+    return ApiResponse.success(
+      dailyForcastWeathers,
+      `Get hourly forecast weather successfully`
+    );
+  }
 }

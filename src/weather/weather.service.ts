@@ -6,13 +6,18 @@ import { OpenWeatherService } from 'src/services/openweather.service';
 import { CityService } from 'src/city/city.service';
 import { CurrentWeatherResponse } from './dto/current-weather.response';
 import { mapToCurrentWeatherResponse } from './mappers/current-weather-to-reponse.mapper';
-import { mapToCurrentWeatherEntity } from 'src/services/mappers/openweather-current-weather-to-entity';
+import { mapToCurrentWeatherEntity } from 'src/services/mappers/openweather-current-weather-to-entity.mapper';
 import { OpenWeatherCurrentResponse } from 'src/services/interfaces/current-weather.interface';
 import { HourlyForecast } from './hourly-forecast.entity';
-import { mapToHourlyForecastEntity } from 'src/services/mappers/openweather-hourly-forecast-weather-to-entity';
+import { mapToHourlyForecastEntity } from 'src/services/mappers/openweather-hourly-forecast-weather-to-entity.mapper';
 import { OpenWeatherHourlyForecastResponse } from 'src/services/interfaces/hourly-forecast-weather.interface';
 import { mapToHourlyForecastWeatherResponse } from './mappers/hourly-forecast-weather-to-response.mapper';
 import { HourlyForecastResponse } from './dto/hourly-forecast-weather.response';
+import { DailyForecastResponse } from './dto/daily-forecast-weather.response';
+import { mapToDailyForecastResponse } from './mappers/daily-forecast-weather-to-response.mapper';
+import { DailyForecast } from './daily-forecast.entity';
+import { OpenWeatherDailyForecastResponse } from 'src/services/interfaces/daily-forecast-weather.interface';
+import { mapToDailyForecastEntity } from 'src/services/mappers/openweather-daily-forecast-weather-to-entity.mapper';
 
 @Injectable()
 export class WeatherService {
@@ -21,6 +26,9 @@ export class WeatherService {
     private currentWeatherRepo: Repository<CurrentWeather>,
     @InjectRepository(HourlyForecast)
     private hourlyForecastWeatherRepo: Repository<HourlyForecast>,
+    @InjectRepository(DailyForecast)
+    private dailyForecastRepo: Repository<DailyForecast>,
+
     private openWeatherService: OpenWeatherService,
     private cityService: CityService
   ) {}
@@ -136,5 +144,58 @@ export class WeatherService {
       page,
       limit,
     };
+  }
+
+  async getDailyForecastWeatherByCityId(
+    city_id: number
+  ): Promise<DailyForecastResponse[]> {
+    const city = await this.cityService.getCityById(city_id);
+    if (!city) throw new NotFoundException('City not found');
+
+    const now = Math.floor(Date.now() / 1000);
+    const todayMidnight = now - (now % 86400); // bỏ phần giờ => mốc 0h hôm nay
+
+    let rows = await this.dailyForecastRepo.find({
+      where: {
+        city: { city_id },
+        df_date: MoreThan(todayMidnight),
+      },
+      relations: ['weatherCondition'],
+      order: { df_date: 'ASC' },
+    });
+
+    if (rows.length === 0) {
+      const { data: api } =
+        await this.openWeatherService.call<OpenWeatherDailyForecastResponse>(
+          '/forecast/daily',
+          {
+            lat: city.latitude,
+            lon: city.longitude,
+            units: 'metric',
+          }
+        );
+
+      const entities = api.list.map(
+        (item) => mapToDailyForecastEntity(item, city_id) // bạn cần tạo mapper này nếu chưa có
+      );
+
+      await this.dailyForecastRepo
+        .createQueryBuilder()
+        .insert()
+        .values(entities)
+        .orIgnore()
+        .execute();
+
+      rows = await this.dailyForecastRepo.find({
+        where: {
+          city: { city_id },
+          df_date: MoreThan(todayMidnight),
+        },
+        relations: ['weatherCondition'],
+        order: { df_date: 'ASC' },
+      });
+    }
+
+    return rows.map(mapToDailyForecastResponse);
   }
 }
