@@ -8,6 +8,7 @@ import { ServicesModule } from 'src/services/services.module';
 import { CityModule } from 'src/city/city.module';
 import { City } from 'src/city/city.entity';
 import { DailyForecast } from './daily-forecast.entity';
+import { HistoryWeather } from './history-weather.entity';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { DailyForecast } from './daily-forecast.entity';
       HourlyForecast,
       City,
       DailyForecast,
+      HistoryWeather,
     ]),
     ServicesModule,
     CityModule,

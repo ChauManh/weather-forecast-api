@@ -1,8 +1,8 @@
 import { HourlyForecast } from 'src/weather/hourly-forecast.entity';
-import type { HourlyForecastItem } from '../interfaces/hourly-forecast-weather.interface';
+import { OpenWeatherHourlyForecastItem } from '../interfaces/hourly-forecast-weather.interface';
 
 export function mapToHourlyForecastEntity(
-  item: HourlyForecastItem,
+  item: OpenWeatherHourlyForecastItem,
   city_id: number
 ): HourlyForecast {
   const hf = new HourlyForecast();

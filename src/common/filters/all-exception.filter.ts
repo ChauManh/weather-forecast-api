@@ -38,6 +38,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
       message,
       error: exception instanceof Error ? exception.stack : exception,
     });
+    console.error('detail error:', exception);
 
     response.status(status).json(new ApiResponse<null>(status, message, null));
   }

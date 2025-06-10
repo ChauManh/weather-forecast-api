@@ -2,7 +2,7 @@ export interface OpenWeatherHourlyForecastResponse {
   cod: string;
   message: number;
   cnt: number;
-  list: HourlyForecastItem[];
+  list: OpenWeatherHourlyForecastItem[];
   city: {
     id: number;
     name: string;
@@ -18,7 +18,7 @@ export interface OpenWeatherHourlyForecastResponse {
   };
 }
 
-export interface HourlyForecastItem {
+export interface OpenWeatherHourlyForecastItem {
   dt: number;
   main: {
     temp: number;

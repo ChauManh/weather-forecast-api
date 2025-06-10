@@ -11,6 +11,7 @@ import { Country } from 'src/country/country.entity';
 import { CurrentWeather } from 'src/weather/current-weather.entity';
 import { DailyForecast } from 'src/weather/daily-forecast.entity';
 import { HourlyForecast } from 'src/weather/hourly-forecast.entity';
+import { HistoryWeather } from 'src/weather/history-weather.entity';
 
 @Entity('City')
 export class City {
@@ -41,4 +42,7 @@ export class City {
 
   @OneToMany(() => HourlyForecast, (hf) => hf.city)
   hourlyForecasts: HourlyForecast[];
+
+  @OneToMany(() => HistoryWeather, (hw) => hw.city)
+  historyWeathers: HistoryWeather[];
 }

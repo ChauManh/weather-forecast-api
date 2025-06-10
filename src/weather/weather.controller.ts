@@ -40,4 +40,14 @@ export class WeatherController {
       `Get hourly forecast weather successfully`
     );
   }
+
+  @Get('history')
+  async getHistoryWeatherByCityId(@Query('city_id') city_id: number) {
+    const historyWeathers =
+      await this.weatherService.getHistoryWeatherByCityId(city_id);
+    return ApiResponse.success(
+      historyWeathers,
+      `Get history weather successfully`
+    );
+  }
 }
