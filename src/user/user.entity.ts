@@ -18,6 +18,12 @@ export class User {
   @Column({ length: 25, unique: true })
   username: string;
 
+  @Column({ length: 25, nullable: true })
+  fullname: string;
+
+  @Column({ length: 60, nullable: true })
+  avatar: string;
+
   @Column({ length: 60 })
   email: string;
 

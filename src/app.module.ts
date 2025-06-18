@@ -11,16 +11,18 @@ import { CountryModule } from './country/country.module';
 import { WeatherConditionModule } from './weather-condition/weather-condition.module';
 import { SeederModule } from './seeder/seeder.module';
 import { AuthModule } from './auth/auth.module';
+import configuration from './config/configuration';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true, // Đảm bảo tất cả các module trong Nest có thể truy cập .env mà không cần require() lại.
+      load: [configuration], // Tải cấu hình từ file configuration.ts
     }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
-      useFactory: typeOrmConfig,
+      useFactory: () => typeOrmConfig(configuration()),
     }),
     CityModule,
     CountryModule,

@@ -11,7 +11,7 @@ export class OpenWeatherService {
     private readonly httpService: HttpService,
     private readonly configService: ConfigService
   ) {
-    this.apiKey = this.configService.get<string>('OPENWEATHER_API_KEY') || '';
+    this.apiKey = this.configService.get<string>('openWeatherApiKey') || '';
   }
 
   async call<T = any>(

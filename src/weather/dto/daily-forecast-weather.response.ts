@@ -1,4 +1,4 @@
-export interface DailyForecastResponse {
+export class DailyForecastResponse {
   df_date: number;
   icon: string;
   temperature_max: number;

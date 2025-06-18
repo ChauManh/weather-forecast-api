@@ -1,4 +1,4 @@
-export interface HourlyForecastResponse {
+export class HourlyForecastResponse {
   hf_timestamp: number;
   icon: string;
   temperature: number;

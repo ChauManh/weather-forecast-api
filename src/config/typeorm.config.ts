@@ -1,13 +1,16 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { ConfigService } from '@nestjs/config';
+import { ConfigType } from '@nestjs/config';
+import configuration from './configuration';
 
-export const typeOrmConfig = (config: ConfigService): TypeOrmModuleOptions => ({
+export const typeOrmConfig = (
+  config: ConfigType<typeof configuration>
+): TypeOrmModuleOptions => ({
   type: 'mysql',
-  host: config.get('DB_HOST'),
-  port: +config.get<number>('DB_PORT', 3306),
-  username: config.get('DB_USERNAME'),
-  password: config.get('DB_PASSWORD'),
-  database: config.get('DB_NAME'),
+  host: config.database.host,
+  port: config.database.port,
+  username: config.database.username,
+  password: config.database.password,
+  database: config.database.name,
   autoLoadEntities: true,
-  synchronize: true, // false trong production!
+  synchronize: config.nodeEnv !== 'production', // true nếu đang dev
 });

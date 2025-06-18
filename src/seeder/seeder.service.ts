@@ -173,7 +173,7 @@ export class SeederService {
     console.log(`Seeded ${conditions.length} weather conditions`);
   }
 
-  async seedAdminUser(config: ConfigService) {
+  async seedAdminUser() {
     const existing = await this.userRepo.findOne({
       where: { username: 'admin' },
     });
@@ -185,7 +185,7 @@ export class SeederService {
     const admin = new User();
     admin.username = 'admin';
     admin.email = 'admin@gmail.com';
-    const rawPassword = config.get<string>('ADMIN_PASSWORD');
+    const rawPassword = this.config.get<string>('adminPassword');
     if (!rawPassword) throw new Error('ADMIN_PASSWORD is not defined');
     admin.password = await hashPassword(rawPassword);
     admin.role = 'ADMIN';
@@ -196,7 +196,7 @@ export class SeederService {
 
   async seederAllData() {
     console.log(`Start seeding all data`);
-    await this.seedAdminUser(this.config);
+    await this.seedAdminUser();
     await this.seedUserAlertTypesFromCSV();
     await this.seedWeatherConditionsFromCSV();
     await this.seedCountriesFromCSV();
