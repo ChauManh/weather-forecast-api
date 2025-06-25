@@ -6,6 +6,8 @@ import { User } from './user.entity';
 import { UserAlertType } from './user-alert-type.entity';
 import { UserAlert } from './user-alert.entity';
 import { UserAlertHistory } from './user-alert-history.entity';
+import { City } from 'src/city/city.entity';
+import { ServicesModule } from 'src/services/services.module';
 
 @Module({
   imports: [
@@ -14,7 +16,9 @@ import { UserAlertHistory } from './user-alert-history.entity';
       UserAlertType,
       UserAlert,
       UserAlertHistory,
+      City,
     ]),
+    ServicesModule,
   ],
   exports: [UserService],
   controllers: [UserController],

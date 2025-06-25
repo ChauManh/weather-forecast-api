@@ -1,7 +1,12 @@
-import { Injectable, InternalServerErrorException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { ConfigService } from '@nestjs/config';
+import { ConfigType } from '@nestjs/config';
 import { AxiosResponse } from 'axios';
+import openweatherConfig from 'src/config/openweather.config';
 
 @Injectable()
 export class OpenWeatherService {
@@ -9,10 +14,9 @@ export class OpenWeatherService {
 
   constructor(
     private readonly httpService: HttpService,
-    private readonly configService: ConfigService
-  ) {
-    this.apiKey = this.configService.get<string>('openWeatherApiKey') || '';
-  }
+    @Inject(openweatherConfig.KEY)
+    private readonly config: ConfigType<typeof openweatherConfig>
+  ) {}
 
   async call<T = any>(
     endpoint: string,
@@ -23,7 +27,7 @@ export class OpenWeatherService {
       : 'https://api.openweathermap.org/data/2.5';
 
     const url = `${baseUrl}${endpoint}`;
-    params.appid = this.apiKey;
+    params.appid = this.config.apiKey;
 
     try {
       return await this.httpService.axiosRef.get<T>(url, { params });

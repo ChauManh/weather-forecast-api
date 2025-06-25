@@ -8,8 +8,11 @@ import * as cookieParser from 'cookie-parser';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
-    origin: 'https://weatherforecast.chaumanh.id.vn',
+    // origin: 'https://weatherforecast.chaumanh.id.vn',
+    origin: 'http://localhost:5173',
     credentials: true, // Cho phép gửi cookie
+    // methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+    // allowedHeaders: ['Content-Type', 'Authorization'],
   });
   app.use(cookieParser());
   // Global validation

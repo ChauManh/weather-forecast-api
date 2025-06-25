@@ -1,4 +1,12 @@
-import { Body, Controller, Post, Res, UseGuards, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  Res,
+  UseGuards,
+  Req,
+  Get,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDto } from './dto/login.dto';
 import { ApiResponse } from 'src/common/dto/api-response.dto';
@@ -7,6 +15,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { AuthRequest } from './interfaces/auth-request.interface';
 import { JwtService } from '@nestjs/jwt';
+import { JwtAuthGuard } from './guards/jwt-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -68,5 +77,13 @@ export class AuthController {
     const accessToken = await this.jwtService.signAsync(payload);
     this.setCookie(res, 'access_token', accessToken, 60);
     return ApiResponse.success(null, 'Access token refreshed');
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('me')
+  async getMe(@Req() req: AuthRequest) {
+    const username = req.user.username;
+    const result = await this.authService.me(username);
+    return ApiResponse.success(result, 'Is authenticated');
   }
 }

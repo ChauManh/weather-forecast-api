@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { UserService } from 'src/user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { comparePassword } from 'src/utils/hash.util';
@@ -15,7 +19,7 @@ export class AuthService {
   async login(username: string, password: string) {
     const user = await this.userService.findOne(username);
     if (!user) {
-      throw new UnauthorizedException('Invalid username');
+      throw new BadRequestException('Invalid username');
     }
     const match = await comparePassword(password, user.password);
     if (!match) throw new UnauthorizedException('Invalid password');
@@ -40,6 +44,18 @@ export class AuthService {
         measurementType: user.measurement_type,
         timezone: `UTC${user.utc >= 0 ? '+' : ''}${user.utc ?? '00:00'}`,
       },
+    };
+  }
+
+  async me(username: string) {
+    const user = await this.userService.findOne(username);
+    if (!user) {
+      throw new UnauthorizedException('Invalid username');
+    }
+    return {
+      userName: user.username,
+      avatar: user.avatar || '',
+      currentCity: user.currentCity?.city_name || '',
     };
   }
 }
